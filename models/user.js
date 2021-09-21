@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const postSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     fullname: String,
     username: String,
     phone: String,
@@ -20,6 +20,6 @@ const postSchema = mongoose.Schema({
     },
 });
 
-var UserModel = mongoose.model("UserModel", postSchema);
+var UserModel = mongoose.model("users", userSchema);
 
 export default UserModel;

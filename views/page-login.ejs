@@ -1,14 +1,8 @@
-<form action="/login" method="POST">
-    <input type="tel" class="form-control" name="phone" id="email1" placeholder="Phone Number">
-    <i class="clear-input">
-                                <ion-icon name="close-circle"></ion-icon>
-                            </i>
-    <input type="password" class="form-control" id="password1" name="password" placeholder="Four Digit Pin">
-    <i class="clear-input">
-                                <ion-icon name="close-circle"></ion-icon>
-                            </i>
+<form action="/user/login" method="POST">
+    <input type="text" name="username" placeholder="username">
 
-    <a href="page-register">Register Now</a>
-    <a href="/page-forgot-password" class="text-muted">Forgot Password?</a>
-    <button type="submit" class="btn btn-primary btn-block btn-lg">Log in</button>
+    <input type="password" id="password1" name="password" placeholder="password">
+    <a href="/user/register">Register Now</a>
+    <!-- <a href="/page-forgot-password" class="text-muted">Forgot Password?</a> -->
+    <button type="submit">Log in</button>
 </form>

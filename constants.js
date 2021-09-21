@@ -1,0 +1,25 @@
+export const userDetails = {
+    fullname,
+    username,
+    phone,
+    email,
+    password,
+    nameOfBusiness,
+    GSTIN,
+    location,
+};
+
+title,
+description,
+image,
+message,
+name,
+creator,
+minimumAskingPrice,
+highestBid,
+biddingEnd,
+location,
+typeOfCookie,
+egglessOrEgg,
+bakedTime,
+likes;

@@ -1,48 +1,48 @@
-import { serializeUser, deserializeUser, use } from "passport";
-import { compareSync } from "bcrypt";
+import passport from "passport";
+import bcrypt from "bcrypt";
 import LocalStrategy from "passport-local";
-import ObjectID;
+import ObjectID from "ObjectID";
 import { Router } from "express";
 const app = Router();
-const myDataBase = require("./db").db();
-require("dotenv").config();
-export default function() {
+import UserModel from "./models/user.js";
+export default function(app) {
     // Serialization and deserialization here...
-    serializeUser((user, done) => {
+    passport.serializeUser((user, done) => {
         done(null, user._id);
     });
-    deserializeUser((id, done) => {
-        myDataBase
-            .collection("users")
-            .findOne({ _id: new ObjectID(id) }, (err, doc) => {
-                done(null, doc);
-            });
+    passport.deserializeUser((id, done) => {
+        done(null, UserModel.findOne({ _id: new ObjectID(id) }));
     });
 
     // strategy
-    use(
+    passport.use(
         new LocalStrategy({
-                usernameField: "phone",
+                usernameField: "username",
                 passwordField: "password",
             },
-            (phone, password, done) => {
-                myDataBase
-                    .collection("users")
-                    .findOne({ phone: phone }, (err, user) => {
-                        if (err) {
-                            return done(err);
-                        }
-                        if (!user) {
-                            return done(null, false);
-                        }
-                        if (!compareSync(password, user.password)) {
-                            return done(null, false);
-                        }
-
-                        return done(null, user);
-                        // strategy
-                    });
+            async(username, password, done) => {
+                try {
+                    const user = await UserModel.findOne({ username });
+                    console.log(user.username);
+                    if (!user) {
+                        return done(null, false);
+                    }
+                    if (!bcrypt.compareSync(password, user.password)) {
+                        return done(null, false);
+                    }
+                    return done(null, user);
+                } catch (error) {
+                    console.log(error);
+                }
             }
         )
     );
+}
+export const ensureAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        req.flash("errors", "Please login");
+    }
+    res.redirect("/page-login");
 };

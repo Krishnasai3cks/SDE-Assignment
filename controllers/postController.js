@@ -11,4 +11,15 @@ export const getPosts = async function(req, res) {
         console.log(error);
     }
 };
+export const showCreatePost = (req, res) => {
+    res.render("page-create-post");
+};
+export const createPost = async(req, res) => {
+    try {
+        const post = req.body;
+        const newpost = await PostModel.insertOne(post);
+    } catch (error) {
+        console.log(error);
+    }
+};
 export default router;
