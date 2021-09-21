@@ -1,0 +1,80 @@
+<a href="page-login">
+                Already have account? Login
+            </a>
+
+<form action="/register" method="POST" id="registration-form">
+
+    <input name="fullname" type="text" id="name1" placeholder="Full name" autocomplete="off" maxlength=30 required>
+
+    <input type="text" name="username" placeholder="username" pattern="[a-zA-Z0-9]{3,12}" required onchange="checkUsername(this)">
+    <input name="phone" type="tel" id="phone" placeholder="888888888" pattern="[0-9]{10}" autocomplete="off" maxlength="12" required onchange="checkPhone(this)">
+    <input type="email" name="email" placeholder="email(optional)">
+    <input name="password" type="password" id="password1" placeholder="Four Digit Pin" autocomplete="off" required>
+
+    <h1> Enter Your Role</h1>
+    <label>
+        <input type="radio" name="role" value="Seller" id="option1" onclick="changeRole(this)" checked>Seller
+    </label>
+    <label>
+        <input type="radio" name="role" value="Buyer" id="option2" onclick="changeRole(this)"> Buyer
+    </label>
+    <label>
+        <input type="radio" name="role" value="Both" id="option3" onclick="changeRole(this)"> Both
+    </label>
+
+    <div id="sellerSpecial">
+
+        <h1>Additional info(only for sellers)</h1>
+        <input type="text" name="nameofbusiness" id="nameofbusiness" placeholder="Name of Business">
+        <input type="text" name="GSTIN" placeholder="GSTIN Number" pattern="[a-zA-Z0-9]{8}">
+        <input type="text" name="location" id="location" placeholder="location">
+
+    </div>
+    <button type="submit">Register</button>
+</form>
+<script>
+    function changeRole(event) {
+        if (event.value == "Seller") {
+            document.getElementById("sellerSpecial").hidden = false;
+            document.getElementById("location").required = true;
+        } else {
+            document.getElementById("sellerSpecial").hidden = true;
+            document.getElementById("location").required = false;
+        }
+    }
+
+    function checkUsername(event) {
+        console.log("event.value", event.value);
+        fetch('/usernamecheck?username=' + event.value).then(function(response) {
+                return response.json();
+            })
+            .then(function(body) {
+                //doSomething with body;
+                console.log(body);
+                if (body.message == "user exists") {
+
+                    event.setCustomValidity("User already exists")
+                    return false
+                } else {
+                    event.setCustomValidity("")
+                }
+            });
+
+    }
+
+    function checkPhone(event) {
+
+        fetch('/phonecheck?phone=' + event.value).then(function(response) {
+                return response.json();
+            })
+            .then(function(body) {
+                //doSomething with body;
+                if (body.message == "phone exists") {
+                    event.setCustomValidity("phone already exists")
+                    return false
+                } else {
+                    event.setCustomValidity("")
+                }
+            });
+    }
+</script>

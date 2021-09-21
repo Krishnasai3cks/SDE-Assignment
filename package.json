@@ -1,0 +1,46 @@
+{
+    "name": "sde-assignment",
+    "version": "1.0.0",
+    "description": "A food marketplace application.",
+    "main": "app.js",
+    "type": "module",
+    "scripts": {
+        "start": "nodemon app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Krishnasai3cks/SDE-Assignment.git"
+    },
+    "keywords": [
+        "food",
+        "order",
+        "marketplace",
+        "cookies",
+        "candies"
+    ],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Krishnasai3cks/SDE-Assignment/issues"
+    },
+    "homepage": "https://github.com/Krishnasai3cks/SDE-Assignment#readme",
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "body-parser": "^1.19.0",
+        "connect-flash": "^0.1.1",
+        "connect-mongo": "^4.6.0",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "ejs": "^3.1.6",
+        "express": "^4.17.1",
+        "express-session": "^1.17.2",
+        "mongodb": "^4.1.2",
+        "mongoose": "^6.0.7",
+        "multer": "^1.4.3",
+        "nodemon": "^2.0.12",
+        "passport": "^0.4.1",
+        "passport-local": "^1.0.0",
+        "validator": "^13.6.0"
+    }
+}
