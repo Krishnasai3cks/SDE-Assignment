@@ -8,7 +8,7 @@
 
     <input type="text" name="username" placeholder="username" pattern="[a-zA-Z0-9]{3,12}" required onchange="checkUsername(this)">
     <input name="phone" type="tel" id="phone" placeholder="888888888" pattern="[0-9]{10}" autocomplete="off" maxlength="12" required onchange="checkPhone(this)">
-    <input type="email" name="email" placeholder="email(optional)">
+    <input type="email" name="email" placeholder="email(optional)" onchange="checkEmail(this)">
     <input name="password" type="password" id="password1" placeholder="Four Digit Pin" autocomplete="off" required>
 
     <h1> Enter Your Role</h1>
@@ -43,38 +43,32 @@
         }
     }
 
-    function checkUsername(event) {
-        console.log("event.value", event.value);
-        fetch('/usernamecheck?username=' + event.value).then(function(response) {
+    function check(event, type) {
+        fetch(`/user/${type}check?${type}=` + event.value).then(function(response) {
                 return response.json();
             })
             .then(function(body) {
                 //doSomething with body;
-                console.log(body);
-                if (body.message == "user exists") {
+                console.log('check', type, '       : ', body.message, type);
+                if (body.message == type + " exists") {
 
-                    event.setCustomValidity("User already exists")
+                    event.setCustomValidity(type, "already exists")
                     return false
                 } else {
                     event.setCustomValidity("")
                 }
             });
+    }
 
+    function checkUsername(event) {
+        check(event, 'username')
     }
 
     function checkPhone(event) {
+        check(event, 'phone');
+    }
 
-        fetch('/phonecheck?phone=' + event.value).then(function(response) {
-                return response.json();
-            })
-            .then(function(body) {
-                //doSomething with body;
-                if (body.message == "phone exists") {
-                    event.setCustomValidity("phone already exists")
-                    return false
-                } else {
-                    event.setCustomValidity("")
-                }
-            });
+    function checkEmail(event) {
+        check(event, 'email');
     }
 </script>

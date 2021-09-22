@@ -1,0 +1,2 @@
+* add the number of bids option.
+* Create the ui for each post. 

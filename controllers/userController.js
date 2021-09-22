@@ -27,7 +27,6 @@ export const getLogin = (req, res) => {
     res.render("page-login");
 };
 export const getRegister = (req, res) => {
-    console.log(req.user.username);
     res.render("page-register", {...req.user });
 };
 export const handleRegister = async(req, res, next) => {
@@ -49,5 +48,5 @@ export const handleLogout = (req, res) => {
 };
 
 export const handleLoginAuthenticate = passport.authenticate("local", {
-    failureRedirect: "/register",
+    failureRedirect: "/user/register",
 });

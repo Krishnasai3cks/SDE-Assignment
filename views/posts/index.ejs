@@ -11,6 +11,15 @@
 <body>
     <h1>All Posts are </h1>
     <% posts.forEach(data=>{ %>
+
+        <div class="card">
+            <img src="<%= data.image %>" alt="Avatar" style="width:100%;height:100%">
+            <div class="container">
+                <h4><b>John Doe</b></h4>
+                <p>Architect & Engineer</p>
+            </div>
+        </div>
+
         <%= JSON.stringify(data) %>
             <hr>
             <% }) %>

@@ -7,6 +7,11 @@ import {
     handleLoginAuthenticate,
     getLogin,
 } from "../controllers/userController.js";
+import {
+    checkUsername,
+    checkPhone,
+    checkEmail,
+} from "../controllers/checkingController.js";
 const router = express.Router();
 import ensureAuthenticated from "../ensureAuthenticated.js";
 router.get("/", (req, res) => {
@@ -26,5 +31,9 @@ router
     .post(handleRegister, handleLoginAuthenticate, (req, res, next) => {
         next();
     });
+
+router.get("/usernamecheck:username", checkUsername);
+router.get("/phonecheck:phone", checkPhone);
+router.get("/emailcheck:email", checkEmail);
 router.route("/logout").get(ensureAuthenticated, handleLogout);
 export default router;
