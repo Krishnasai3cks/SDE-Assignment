@@ -3,9 +3,22 @@ import {
     showCreatePost,
     createPost,
 } from "../controllers/postController.js";
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        req.flash("errors", "Please login");
+    }
+    res.redirect("/user/login");
+}
 import express from "express";
 const router = express.Router();
 
 router.get("/", getPosts);
-router.get("/create", showCreatePost);
+router
+    .route("/create")
+    .get(ensureAuthenticated, showCreatePost)
+    .post(ensureAuthenticated, createPost);
+
 export default router;

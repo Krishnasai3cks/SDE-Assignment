@@ -27,10 +27,10 @@ export const getLogin = (req, res) => {
     res.render("page-login");
 };
 export const getRegister = (req, res) => {
+    console.log(req.user.username);
     res.render("page-register", {...req.user });
 };
 export const handleRegister = async(req, res, next) => {
-    console.log("handleRegister");
     let actual = req.body;
     const hash = hashSync(actual.password, 12);
     actual.password = hash;

@@ -9,7 +9,11 @@
 </head>
 
 <body>
-
+    <h1>All Posts are </h1>
+    <% posts.forEach(data=>{ %>
+        <%= JSON.stringify(data) %>
+            <hr>
+            <% }) %>
 </body>
 
 </html>

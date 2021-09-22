@@ -1,0 +1,51 @@
+<!-- title, description, image, message, name, creator, minimumAskingPrice, highestBid, biddingEnd, location, typeOfCookie, egglessOrEgg, bakedTime, likes -->
+
+<form action="/posts/create" method="post">
+    <input type="text" name="title" placeholder="title" required>
+    <input type="text" name="description" placeholder="description" required>
+
+    <input type="file" name="file" id="file">
+    <button type="button" onclick="uploadImage(this)">upload</button>
+    <input type="text" name="image" id="image" required readonly style="opacity:0;width:0;">
+    <input type="text" name="message" placeholder="message" required>
+    <input type="text" name="name" placeholder="name" value="<%= user.role==" seller "?user.businessName:user.fullname+`(${user.username})` %>" required readonly>
+    <input type="number" name="minAskingPrice" placeholder="Minimum Asking Price(MAP)" required>
+    <input type="number" name="highestBid" placeholder="Current Highest Bid" required>
+    <input type="date" name="biddingEnd" required>
+    <input type="text" name="location" placeholder="location" required>
+    <input type="text" name="cookie" placeholder="cookie" required>
+
+    <label for="egg">
+        Egg
+        <input type="radio" name="egglessOrEgg" id="egg" value="egg">
+    </label>
+    <label for="eggless">
+        Eggless
+        <input type="radio" name="egglessOrEgg" id="eggless" value="eggless">
+    </label>
+
+    <input type="submit" value="Create" />
+</form>
+
+<script>
+    function uploadImage(e) {
+        console.log("In create post", e);
+
+        function base64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        var file = document.getElementById('file').files[0];
+        base64(file).then(
+            data => {
+                console.log(data);
+                document.getElementById('image').value = data;
+            }
+        );
+    }
+</script>
